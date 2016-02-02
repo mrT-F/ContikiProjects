@@ -57,7 +57,7 @@ PROCESS_THREAD(sender_node_process, ev, data)
 
     PROCESS_WAIT_EVENT();
 
-    if(pkts_sent<200){
+    if(pkts_sent<20){
       if(etimer_expired(&et)) {
         static rimeaddr_t oldparent;
         const rimeaddr_t *parent;

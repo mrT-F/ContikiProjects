@@ -55,6 +55,11 @@ PROCESS_THREAD(base_station_process, ev, data)
   while(1) {
 
     //Busy loop - I think we need this to keep receiving
+    if(etimer_expired(&et)) {
+      etimer_set(&et, random_rand() % (CLOCK_SECOND * 5));
+    }
+
+    PROCESS_WAIT_EVENT();
 
   }
 
