@@ -24,13 +24,14 @@ AUTOSTART_PROCESSES(&base_station_process);
 static void
 recv(const rimeaddr_t *originator, uint8_t seqno, uint8_t hops)
 {
-  static signed char rssi = cc2420_last_rssi+45;
+  static signed char rssi;
+  rssi = cc2420_last_rssi+45;
   printf("Base Station got message from %d.%d, seqno %d, hops %d: len %d '%s'\n",
 	 originator->u8[0], originator->u8[1],
 	 seqno, hops,
 	 packetbuf_datalen(),
 	 (char *)packetbuf_dataptr());
-  printf("\t RSSI Value: %d\n",rssi)
+  printf("\t RSSI Value: %d\n",rssi);
 
 }
 /*---------------------------------------------------------------------------*/
