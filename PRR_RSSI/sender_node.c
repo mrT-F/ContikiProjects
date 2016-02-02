@@ -37,7 +37,6 @@ PROCESS_THREAD(sender_node_process, ev, data)
   static struct etimer periodic;
   static struct etimer et;
   int pkts_sent=0;
-  int send_success;
 
   PROCESS_BEGIN();
   /*Open collect connection*/
@@ -66,9 +65,9 @@ PROCESS_THREAD(sender_node_process, ev, data)
         packetbuf_clear();
         packetbuf_set_datalen(sprintf(packetbuf_dataptr(),
   				  "%s", "Checking In") + 1);
-        send_success=collect_send(&tc, 15);
+        collect_send(&tc, 15);
         //Increment packets sent if successful
-        pkts_sent+=send_success;
+        pkts_sent++;
         printf("\tPackets Sent: %d\n",pkts_sent);
         parent = collect_parent(&tc);
         if(!rimeaddr_cmp(parent, &oldparent)) {
