@@ -36,7 +36,7 @@ PROCESS_THREAD(sender_node_process, ev, data)
 {
   static struct etimer periodic;
   static struct etimer et;
-  int pkts_sent=0;
+  int pkts_sent;
 
   PROCESS_BEGIN();
   /*Open collect connection*/
@@ -45,13 +45,13 @@ PROCESS_THREAD(sender_node_process, ev, data)
   /* Allow some time for the network to settle. */
   etimer_set(&et, 5 * CLOCK_SECOND);
   PROCESS_WAIT_UNTIL(etimer_expired(&et));
-
+  pkts_sent=0;
   while(1) {
 
     /* Send a packet every second until we send 200 */
     if(etimer_expired(&periodic)) {
-      etimer_set(&periodic, CLOCK_SECOND * 1);
-      etimer_set(&et, random_rand() % (CLOCK_SECOND * 1));
+      etimer_set(&periodic, CLOCK_SECOND * 2);
+      etimer_set(&et, random_rand() % (CLOCK_SECOND * 2));
     }
 
     PROCESS_WAIT_EVENT();
@@ -67,7 +67,7 @@ PROCESS_THREAD(sender_node_process, ev, data)
   				  "%s", "Checking In") + 1);
         collect_send(&tc, 15);
         //Increment packets sent if successful
-        pkts_sent++;
+        pkts_sent=pkts_sent+1;
         printf("\tPackets Sent: %d\n",pkts_sent);
         parent = collect_parent(&tc);
         if(!rimeaddr_cmp(parent, &oldparent)) {
