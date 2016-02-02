@@ -10,7 +10,7 @@
 #include "net/rime/collect.h"
 #include "dev/leds.h"
 #include "dev/button-sensor.h"
-
+#include "dev/cc2420.h"
 #include "net/netstack.h"
 
 #include <stdio.h>
