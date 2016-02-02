@@ -36,7 +36,7 @@ PROCESS_THREAD(sender_node_process, ev, data)
 {
   static struct etimer periodic;
   static struct etimer et;
-  int pkts_sent;
+  static int pkts_sent;
 
   PROCESS_BEGIN();
   /*Open collect connection*/
