@@ -53,11 +53,9 @@ PROCESS_THREAD(sender_node_process, ev, data)
   while(1) {
 
     /* Send a packet every second until we send 200 */
-    if(etimer_expired(&periodic)) {
-      etimer_set(&et, random_rand() % (CLOCK_SECOND/100));
-    }
+    etimer_set(&et, CLOCK_SECOND + random_rand() % (CLOCK_SECOND ));
 
-    PROCESS_WAIT_EVENT();
+    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 
     if(pkts_sent<200){
       if(etimer_expired(&et)) {
