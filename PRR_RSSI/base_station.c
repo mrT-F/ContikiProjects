@@ -49,7 +49,7 @@ PROCESS_THREAD(base_station_process, ev, data)
 
 
   /* Allow some time for the network to settle. */
-  etimer_set(&et, 5 * CLOCK_SECOND);
+  etimer_set(&et, 30 * CLOCK_SECOND);
   PROCESS_WAIT_UNTIL(etimer_expired(&et));
 
   while(1) {
