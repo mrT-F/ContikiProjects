@@ -32,8 +32,6 @@ recv(const rimeaddr_t *originator, uint8_t seqno, uint8_t hops)
 	 packetbuf_datalen(),
 	 (char *)packetbuf_dataptr());
   printf("\t RSSI Value: %d\n",rssi);
-  printf("COLLECT STATS: \t");
-  collect_print_stats();
 
 }
 /*---------------------------------------------------------------------------*/
@@ -58,11 +56,12 @@ PROCESS_THREAD(base_station_process, ev, data)
 
     //Busy loop - I think we need this to keep receiving
     if(etimer_expired(&et)) {
-      etimer_set(&et, random_rand() % (CLOCK_SECOND * 5));
+      etimer_set(&et, random_rand() % (CLOCK_SECOND * 30));
     }
 
     PROCESS_WAIT_EVENT();
-
+    printf("COLLECT STATS: \t");
+    collect_print_stats();
   }
 
   PROCESS_END();
