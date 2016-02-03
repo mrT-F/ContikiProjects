@@ -32,7 +32,7 @@ recv(const rimeaddr_t *originator, uint8_t seqno, uint8_t hops)
 	 packetbuf_datalen(),
 	 (char *)packetbuf_dataptr());
   printf("\t RSSI Value: %d\n",rssi);
-  PRINTF("COLLECT STATS: \t");
+  printf("COLLECT STATS: \t");
   collect_print_stats();
 
 }
