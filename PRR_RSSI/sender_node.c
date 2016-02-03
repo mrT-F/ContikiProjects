@@ -75,7 +75,10 @@ PROCESS_THREAD(sender_node_process, ev, data)
 
       }
     }
-    printf("Done sending packets\n");
+    else if (pkts_sent==200){
+      printf("Done sending packets\n");
+      pkts_sent=202;
+    }
 
   }
 
