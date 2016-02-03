@@ -16,6 +16,8 @@
 #include <stdio.h>
 
 static int numberPacketsReceived;
+static int avgRSSI;
+static int totalRSSI;
 
 /*---------------------------------------------------------------------------*/
 PROCESS(base_station_process, "RSSI/PRR Base Station");
@@ -26,14 +28,16 @@ recv(const rimeaddr_t *originator, uint8_t seqno, uint8_t hops)
 {
   static signed char rssi;
   rssi = cc2420_last_rssi+45;
+  totalRSSI += rssi;
   printf("Base Station got message from %d.%d, seqno %d, hops %d: len %d '%s'\n",
 	 originator->u8[0], originator->u8[1],
 	 seqno, hops,
 	 packetbuf_datalen(),
 	 (char *)packetbuf_dataptr());
   printf("\t RSSI Value: %d\n",rssi);
-
+  printf("\t Average RSSI: %d\n",avgRSSI);
   printf("Total packets received: %d\n",++numberPacketsReceived);
+  avgRSSI = (totalRSSI) / numberPacketsReceived;
   
 }
 /*---------------------------------------------------------------------------*/
