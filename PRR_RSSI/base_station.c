@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 
-static struct collect_conn tc;
+static int numberPacketsReceived;
 
 /*---------------------------------------------------------------------------*/
 PROCESS(base_station_process, "RSSI/PRR Base Station");
@@ -32,7 +32,9 @@ recv(const rimeaddr_t *originator, uint8_t seqno, uint8_t hops)
 	 packetbuf_datalen(),
 	 (char *)packetbuf_dataptr());
   printf("\t RSSI Value: %d\n",rssi);
-  printf("Collect transmissions: %d\n",tc.transmissions);
+
+  printf("Total packets received: %d\n",++numberPacketsReceived);
+  
 }
 /*---------------------------------------------------------------------------*/
 static const struct collect_callbacks callbacks = { recv };
@@ -42,10 +44,8 @@ PROCESS_THREAD(base_station_process, ev, data)
   static struct etimer et;
   
   PROCESS_BEGIN();
-//Open collect connection
-  collect_open(&tc, 130, COLLECT_ROUTER, &callbacks);
-//This is the base station, so this is the sink
-	collect_set_sink(&tc, 1);
+
+  numberPacketsReceived = 0;
 
 
   /* Allow some time for the network to settle. */
