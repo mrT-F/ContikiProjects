@@ -32,7 +32,13 @@ recv(const rimeaddr_t *originator, uint8_t seqno, uint8_t hops)
 	 packetbuf_datalen(),
 	 (char *)packetbuf_dataptr());
   printf("\t RSSI Value: %d\n",rssi);
-
+  printf("COLLECT STATS:\t");
+  printf("foundroute %lu newparent %lu routelost %lu acksent %lu datasent %lu datarecv %lu ackrecv %lu badack %lu duprecv %lu qdrop %lu rtdrop %lu ttldrop %lu ackdrop %lu timedout %lu\n",
+         stats.foundroute, stats.newparent, stats.routelost,
+         stats.acksent, stats.datasent, stats.datarecv,
+         stats.ackrecv, stats.badack, stats.duprecv,
+         stats.qdrop, stats.rtdrop, stats.ttldrop, stats.ackdrop,
+         stats.timedout);
 }
 /*---------------------------------------------------------------------------*/
 static const struct collect_callbacks callbacks = { recv };
@@ -60,8 +66,6 @@ PROCESS_THREAD(base_station_process, ev, data)
     }
 
     PROCESS_WAIT_EVENT();
-    printf("COLLECT STATS: \t");
-    collect_print_stats();
   }
 
   PROCESS_END();

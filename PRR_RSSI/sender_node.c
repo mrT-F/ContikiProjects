@@ -69,7 +69,6 @@ PROCESS_THREAD(sender_node_process, ev, data)
         //Increment packets sent if successful
         pkts_sent=pkts_sent+1;
         printf("\tPackets Sent: %d\n",pkts_sent);
-        collect_print_stats();
         parent = collect_parent(&tc);
         if(!rimeaddr_cmp(parent, &oldparent)) {
           if(!rimeaddr_cmp(&oldparent, &rimeaddr_null)) {
