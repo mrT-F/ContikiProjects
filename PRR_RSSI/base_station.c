@@ -18,6 +18,7 @@
 static int numberPacketsReceived;
 static int avgRSSI;
 static int totalRSSI;
+static struct broadcast_conn broadcast;
 
 /*---------------------------------------------------------------------------*/
 PROCESS(base_station_process, "RSSI/PRR Base Station");
@@ -41,7 +42,7 @@ recv(const rimeaddr_t *originator, uint8_t seqno, uint8_t hops)
   
 }
 /*---------------------------------------------------------------------------*/
-static const struct collect_callbacks callbacks = { recv };
+static const struct broadcast_callbacks broadcast_call = { recv };
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(base_station_process, ev, data)
 {
@@ -50,7 +51,7 @@ PROCESS_THREAD(base_station_process, ev, data)
   PROCESS_BEGIN();
 
   numberPacketsReceived = 0;
-
+  broadcast_open(&broadcast, 129, &broadcast_call);
 
   /* Allow some time for the network to settle. */
   etimer_set(&et, 30 * CLOCK_SECOND);

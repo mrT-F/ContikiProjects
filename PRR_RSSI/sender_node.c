@@ -14,14 +14,14 @@
 
 #include <stdio.h>
 
-static struct collect_conn tc;
+static struct broadcast_conn broadcast;
 
 /*---------------------------------------------------------------------------*/
 PROCESS(sender_node_process, "RSSI/PRR Sender Node");
 AUTOSTART_PROCESSES(&sender_node_process);
 /*---------------------------------------------------------------------------*/
 
-/*static void
+static void
 recv(const rimeaddr_t *originator, uint8_t seqno, uint8_t hops)
 {
   printf("Sender node got message from %d.%d, seqno %d, hops %d: len %d '%s'\n",
@@ -29,10 +29,10 @@ recv(const rimeaddr_t *originator, uint8_t seqno, uint8_t hops)
 	 seqno, hops,
 	 packetbuf_datalen(),
 	 (char *)packetbuf_dataptr());
-}*/
+}
 
 /*---------------------------------------------------------------------------*/
-static const struct collect_callbacks callbacks = { recv };
+static const struct broadcast_callbacks broadcast_call = { recv };
 /*---------------------------------------------------------------------------*/
 PROCESS_THREAD(sender_node_process, ev, data)
 {
