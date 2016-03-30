@@ -1,6 +1,6 @@
 /*
 * Base Station for RSSI/PRR Calculations
-* Based on example-collect.c 
+* Based on example-broadcast.c 
 *
  */
 
@@ -30,7 +30,7 @@ recv(const rimeaddr_t *originator, uint8_t seqno, uint8_t hops)
   static signed char rssi;
   rssi = cc2420_last_rssi;
   totalRSSI += rssi;
-  printf("\t RSSI Value: %d\n",rssi);
+  printf("%d\n",rssi);
   
 }
 /*---------------------------------------------------------------------------*/
