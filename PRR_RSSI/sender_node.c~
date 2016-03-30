@@ -52,11 +52,12 @@ PROCESS_THREAD(sender_node_process, ev, data)
   pkts_sent=0;
   while(1) {
 
-    /* Send a packet every second */
+    /* Send a packet every second until we send 200 */
     etimer_set(&et, CLOCK_SECOND + random_rand() % (CLOCK_SECOND ));
 
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et));
 
+    if(pkts_sent<200){
       if(etimer_expired(&et)) {
 
         printf("Sending to Base Station\n");
@@ -71,6 +72,11 @@ PROCESS_THREAD(sender_node_process, ev, data)
         printf("\tPackets Sent: %d\n",pkts_sent);
 
       }
+    }
+    else if (pkts_sent==200){
+      printf("Done sending packets\n");
+      pkts_sent=202;
+    }
 
   }
 

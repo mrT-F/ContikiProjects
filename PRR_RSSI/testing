@@ -1,0 +1,16 @@
+make IHEXFILE=base_station.ihex sky-reset sky-upload
+make[1]: Entering directory `/home/user/contiki-2.7/EE579/PRR_RSSI'
+make -k -j 20 sky-reset-sequence
+make[2]: Entering directory `/home/user/contiki-2.7/EE579/PRR_RSSI'
+../../tools/sky/msp430-bsl-linux --telosb -c /dev/ttyUSB0 -r
+Done
+make[2]: Leaving directory `/home/user/contiki-2.7/EE579/PRR_RSSI'
+make -j 20 sky-upload-sequence
+make[2]: Entering directory `/home/user/contiki-2.7/EE579/PRR_RSSI'
++++++ Erasing /dev/ttyUSB0
++++++ Programming /dev/ttyUSB0
++++++ Resetting /dev/ttyUSB0
+Done
+make[2]: Leaving directory `/home/user/contiki-2.7/EE579/PRR_RSSI'
+make[1]: Leaving directory `/home/user/contiki-2.7/EE579/PRR_RSSI'
+../../tools/sky/serialdump-linux -b115200 /dev/ttyUSB0
